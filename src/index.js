@@ -1,3 +1,4 @@
+import calculateWinner from './helpers/calculateWinner' ;
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "./index.css";
@@ -25,6 +26,9 @@ class Board extends React.Component {
   
   handleClick = (i) => {
     const squares = [...this.state.squares];
+    if (squares[i] || calculateWinner(this.state.squares)) {
+      return
+    };
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
       squares,
@@ -42,7 +46,11 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = `Next player: ${this.state.xIsNext ? "X" : "O"}`;
+    const winner = calculateWinner(this.state.squares);
+    console.log(winner);
+    const status = winner ? 
+                    `Winner : ${winner}` 
+                    :`Next player: ${this.state.xIsNext ? "X" : "O"}`;
 
     return (
       <div>
