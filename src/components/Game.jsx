@@ -15,23 +15,22 @@ export default class Game extends React.Component {
   }
   
   handleClick = (i) => {
-    const history = [...this.state.history];
-    const current = history[history.length - 1];
+    const { history, stepNumber, xIsNext } = this.state;
+    const newHistory = history.slice(0, stepNumber + 1);
+    const current = newHistory[stepNumber];
     const squares = [...current.squares];
     if (squares[i] || calculateWinner(squares)) {
       return
     };
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
-      history: history.concat([{
-        squares
-      }]),
-      xIsNext: !this.state.xIsNext
+      history: [...newHistory, {squares}],
+      stepNumber: newHistory.length,
+      xIsNext: !xIsNext
     });
   };
 
   jumpTo = (step) => {
-    console.log(step);
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0
@@ -39,8 +38,8 @@ export default class Game extends React.Component {
   }
 
   render() {
-    const { history, xIsNext } = this.state;
-    const current = history[history.length - 1];
+    const { history, stepNumber, xIsNext } = this.state;
+    const current = history[stepNumber];
     const squares = current.squares;
     const winner = calculateWinner(squares);
     const status = winner ? 
