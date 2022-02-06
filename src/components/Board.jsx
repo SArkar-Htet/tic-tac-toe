@@ -1,39 +1,35 @@
 import React from 'react';
 import Square from './Square';
 
-
-class Board extends React.Component {
-  renderSquare(i) {
-    return (
-      <Square 
-        value={this.props.squares[i]} 
-        onClick={() => this.props.onClick(i)}
-      />
-    );
-  }
-
-  render() {
+const Board = ({squares}) => {
+  const squareComponents = squares.map((square, index) => {
+    const borderBottom = [0, 1, 2];
+    const borderTop = [6, 7, 8];
+    const borderRight = [0, 3, 6];
+    const borderLeft = [2, 5, 8];
+    const borderX = borderRight.includes(index)
+                    ? 'square--border-right'
+                    : borderLeft.includes(index) 
+                    ? 'square--border-left'
+                    : '';
     
+    const borderY = borderBottom.includes(index) 
+                    ? 'square--border-bottom'
+                    : borderTop.includes(index)
+                    ? 'square--border-top'
+                    : '';
+
+    const value = index % 2 == 0;
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
+      <Square key={index} borderX={borderX} borderY={borderY} value={value} />
+      )
+    });
+  return (
+    <div className="Board">
+      {squareComponents}
+    </div>
+  );
+};
 
 export default Board;
+

@@ -1,10 +1,9 @@
-const Square = ({value, onClick}) => {
+const Square = ({value, onClick, borderX, borderY}) => {
   return (
     <button 
-      className="square" 
-      onClick={onClick}
+      className={`square ${borderX} ${borderY}`} 
     >
-      {value}
+    {value ? "X" : "O"}
     </button>
   );
 };
