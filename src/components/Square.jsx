@@ -2,8 +2,9 @@ const Square = ({value, onClick, borderX, borderY}) => {
   return (
     <button 
       className={`square ${borderX} ${borderY}`} 
+      onClick={onClick}
     >
-    {value ? "X" : "O"}
+      {value}
     </button>
   );
 };

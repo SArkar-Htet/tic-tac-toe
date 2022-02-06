@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from './Square';
 
-const Board = ({squares}) => {
+const Board = ({squares, onClick}) => {
   const squareComponents = squares.map((square, index) => {
     const borderBottom = [0, 1, 2];
     const borderTop = [6, 7, 8];
@@ -19,9 +19,8 @@ const Board = ({squares}) => {
                     ? 'square--border-top'
                     : '';
 
-    const value = index % 2 == 0;
     return (
-      <Square key={index} borderX={borderX} borderY={borderY} value={value} />
+      <Square key={index} borderX={borderX} borderY={borderY} value={square} onClick={() => onClick(index)} />
       )
     });
   return (
