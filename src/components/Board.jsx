@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from './Square';
 
-const Board = ({squares, onClick}) => {
+const Board = ({squares, winner, onClick}) => {
   const squareComponents = squares.map((square, index) => {
     const borderBottom = [0, 1, 2];
     const borderTop = [6, 7, 8];
@@ -19,8 +19,24 @@ const Board = ({squares, onClick}) => {
                     ? 'square--border-top'
                     : '';
 
+    const isWinner = winner && winner.includes(index)
+                            ? 'square-winner'
+                            : '';
+
+    const classes = winner ? `square square--border-secondary ${winner.includes(index) 
+                            ? 'square--winner' 
+                            : 'square--secondary'}` 
+                            : `square square--border`;
+
     return (
-      <Square key={index} borderX={borderX} borderY={borderY} value={square} onClick={() => onClick(index)} />
+      <Square 
+        key={index} 
+        // borderX={borderX} 
+        // borderY={borderY} 
+        value={square} 
+        classes = {`${classes} ${borderX} ${borderY}`}
+        onClick={() => onClick(index)} 
+      />
       )
     });
   return (

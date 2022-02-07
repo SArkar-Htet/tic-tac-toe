@@ -97,20 +97,33 @@ body {
   font-family: 'Patrick Hand', cursive;
   font-size: 5rem;
   
+  &--secondary {
+    color: $color-secondary;
+  }
+
+  &--border {
+    border: 0px solid $color-white;
+
+    &-secondary {
+      @extend .square--border;
+      border-color: $color-secondary;
+    }
+  }
+  
   &--border-top {
-    border-top: 3px solid $color-white;
+    border-top-width: 3px;
   }
   
   &--border-bottom {
-    border-bottom: 3px solid $color-white;
+    border-bottom-width: 3px;
   }
   
   &--border-left {
-    border-left: 3px solid $color-white;
+    border-left-width: 3px;
   }
   
   &--border-right {
-    border-right: 3px solid $color-white;
+    border-right-width: 3px;
   }
 
   @include breakpoint-up(large) {
@@ -118,8 +131,20 @@ body {
     height: 120px;
     font-size: 6rem;
 
-    &--border-top, &--border-right, &--border-bottom, &--border-left {
-      border-width: 4px;
+    &--border-top {
+      border-top-width: 4px;
+    }
+
+    &--border-right {
+      border-right-width: 4px;
+    }
+
+    &--border-bottom {
+      border-bottom-width: 4px;
+    }
+    
+    &--border-left {
+      border-left-width: 4px;
     }
   }
 }

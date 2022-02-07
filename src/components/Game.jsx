@@ -22,7 +22,11 @@ const Game = () => {
   return (
     <div className='game w-100 h-100 p-1'>
       <h1 className='game__status'>{gameStatus}</h1>
-      <Board squares={squares} onClick={handleClick} />
+      <Board 
+        squares={squares} 
+        winner={winner} 
+        onClick={handleClick}
+      />
       <div className="game__scores">
         <div className="game__scores--item">
           <span>Player (X)</span>
