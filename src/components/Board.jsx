@@ -27,8 +27,6 @@ const Board = ({squares, winner, isDraw, onClick}) => {
     return (
       <Square 
         key={index} 
-        // borderX={borderX} 
-        // borderY={borderY} 
         value={square} 
         classes = {`square ${classes} ${borderX} ${borderY}`}
         onClick={() => onClick(index)} 
