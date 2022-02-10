@@ -1,7 +1,7 @@
 const Square = ({value, classes, onClick}) => {
   return (
     <button 
-      className={`${classes}`} 
+      className={classes} 
       onClick={onClick}
     >
       {value}

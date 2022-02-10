@@ -19,10 +19,6 @@ const Board = ({squares, winner, onClick}) => {
                     ? 'square--border-top'
                     : '';
 
-    const isWinner = winner && winner.includes(index)
-                            ? 'square-winner'
-                            : '';
-
     const classes = winner ? `square square--border-secondary ${winner.includes(index) 
                             ? 'square--winner' 
                             : 'square--secondary'}` 
