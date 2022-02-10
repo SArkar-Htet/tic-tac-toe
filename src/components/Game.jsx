@@ -7,7 +7,11 @@ const Game = () => {
   const [xIsNext, setXIsNext] = useState(true);
   const squares = history[history.length - 1];
   const winner = calculateWinner(squares);
-  const gameStatus = winner ? `${squares[winner[0]]} Win!` : xIsNext ? "X Turn" : "O Turn";
+  const isDraw = !winner && !squares.includes(null);
+  const gameStatus = winner ? `${squares[winner[0]]} Win!` 
+                    : isDraw ? "Draw!"
+                    : xIsNext ? "X Turn" 
+                    : "O Turn";
 
   const handleClick = (i) => {
     const newHistory = [...history];
@@ -25,6 +29,7 @@ const Game = () => {
       <Board 
         squares={squares} 
         winner={winner} 
+        isDraw={isDraw} 
         onClick={handleClick}
       />
       <div className="game__scores">

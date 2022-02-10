@@ -104,7 +104,7 @@ body {
   &--border {
     border: 0px solid $color-white;
 
-    &-secondary {
+    &--secondary {
       @extend .square--border;
       border-color: $color-secondary;
     }
