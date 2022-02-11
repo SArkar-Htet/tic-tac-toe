@@ -30,15 +30,19 @@ const Game = () => {
 
   useEffect(() => {
     let {playerX, playerY, tie} = {...scores};
+    const newSquares = [Array(9).fill(null)];
+    const newHistory = [...history, ...newSquares];
     if (winner) {
       winner === "X" ? playerX++ : playerY++;
       const newScores = {playerX, playerY, tie};
       setScores({...newScores});
+      setTimeout(() => setHistory([...newHistory]), 2000);
     } 
     if (isDraw) {
       tie++;
       const newScores = {...scores, tie};
       setScores({...newScores});
+      setTimeout(() => setHistory([...newHistory]), 2000);
     }
   }, [xIsNext]);
 
