@@ -3,6 +3,7 @@ import Board from './Board';
 import calculateWinner from '../helpers/calculateWinner';
 import {calculateScores} from '../helpers/calculateScores';
 import {restartGame} from '../helpers/gameHandle';
+import {calculateGameResult} from '../helpers/calculateGameResult';
 
 const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
@@ -22,35 +23,32 @@ const Game = () => {
   }
 
   const squares = history[history.length - 1];
-  const win = calculateWinner(squares);
-  const winner = win && squares[win[0]];
-  const isDraw = !win && !squares.includes(null);
-  const gameStatus = win ? `${winner} Win!` 
+  const [winningMoves, winner, isDraw] = calculateGameResult(squares, calculateWinner(squares));
+  const gameStatus = winner ? `${winner} Win!` 
                     : isDraw ? "Draw!"
                     : xIsNext ? "X Turn" 
                     : "O Turn";
+  const {playerX, playerY, tie} = scores;
 
-  const calculateGameResult = () => {
+  const completeGame = () => {
     if (!winner && !isDraw) {
       return;
     }
     setScores({...calculateScores(scores, winner, isDraw)});
-    setTimeout(() => setHistory([...restartGame(history)]), 2000);
+    setTimeout(() => setHistory([...restartGame(history)]), 1500);
   }
 
   useEffect(() => {
-    calculateGameResult();
+    completeGame();
     
   }, [xIsNext]);
-
-  const {playerX, playerY, tie} = scores;
 
   return (
     <div className='game w-100 h-100 p-1'>
       <h1 id='game_status' className='game__status'>{gameStatus}</h1>
       <Board 
         squares={squares} 
-        winner={win} 
+        winner={winningMoves} 
         isDraw={isDraw} 
         onClick={handleClick}
       />
