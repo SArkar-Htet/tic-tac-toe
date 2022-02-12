@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Board from './Board';
 import calculateWinner from '../helpers/calculateWinner';
+import {calculateScores} from '../helpers/calculateScores';
+import {restartGame} from '../helpers/gameHandle';
 
 const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
@@ -28,22 +30,17 @@ const Game = () => {
                     : xIsNext ? "X Turn" 
                     : "O Turn";
 
-  useEffect(() => {
-    let {playerX, playerY, tie} = {...scores};
-    const newSquares = [Array(9).fill(null)];
-    const newHistory = [...history, ...newSquares];
-    if (winner) {
-      winner === "X" ? playerX++ : playerY++;
-      const newScores = {playerX, playerY, tie};
-      setScores({...newScores});
-      setTimeout(() => setHistory([...newHistory]), 2000);
-    } 
-    if (isDraw) {
-      tie++;
-      const newScores = {...scores, tie};
-      setScores({...newScores});
-      setTimeout(() => setHistory([...newHistory]), 2000);
+  const calculateGameResult = () => {
+    if (!winner && !isDraw) {
+      return;
     }
+    setScores({...calculateScores(scores, winner, isDraw)});
+    setTimeout(() => setHistory([...restartGame(history)]), 2000);
+  }
+
+  useEffect(() => {
+    calculateGameResult();
+    
   }, [xIsNext]);
 
   const {playerX, playerY, tie} = scores;
