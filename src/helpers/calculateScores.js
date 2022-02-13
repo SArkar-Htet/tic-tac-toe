@@ -1,9 +1,9 @@
-const calculateScores = ({playerX, playerY, tie}, winner, isDraw) => {
+const calculateScores = ({playerX, playerO, tie}, winner, isDraw) => {
   if (!winner && !isDraw) {
     return false;
   }
-  winner ? winner === "X" ? playerX++ : playerY++ : isDraw && tie++;
-  const newScores = {playerX, tie, playerY};
+  winner ? winner === "X" ? playerX++ : playerO++ : isDraw && tie++;
+  const newScores = {playerX, tie, playerO};
   return newScores;
 }
 
