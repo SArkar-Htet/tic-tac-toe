@@ -48,7 +48,7 @@ const Game = () => {
       <h1 id='game_status' className='game__status'>{gameStatus}</h1>
       <Board 
         squares={squares} 
-        winner={winningMoves} 
+        winningMoves={winningMoves} 
         isDraw={isDraw} 
         onClick={handleClick}
       />
