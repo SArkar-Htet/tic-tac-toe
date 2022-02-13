@@ -12,7 +12,7 @@ const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [xIsNext, setXIsNext] = useState(true);
   const [scores, setScores] = useState({
-    playerX: 0, tie: 0, playerY: 0
+    playerX: 0, tie: 0, playerO: 0
   });
 
   const handleClick = (i) => {
