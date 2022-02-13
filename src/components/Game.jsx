@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Board from './Board';
+import Scores from './Scores';
 import calculateWinner from '../helpers/calculateWinner';
 import {calculateScores} from '../helpers/calculateScores';
 import {restartGame} from '../helpers/gameHandle';
@@ -9,7 +10,7 @@ const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [xIsNext, setXIsNext] = useState(true);
   const [scores, setScores] = useState({
-    playerX: 0, playerY: 0, tie: 0
+    playerX: 0, tie: 0, playerY: 0
   });
 
   const handleClick = (i) => {
@@ -28,7 +29,7 @@ const Game = () => {
                     : isDraw ? "Draw!"
                     : xIsNext ? "X Turn" 
                     : "O Turn";
-  const {playerX, playerY, tie} = scores;
+  const gameScores = Object.keys(scores).map(score => <Scores key={score} player={score} score={scores[score]} />);
 
   const completeGame = () => {
     if (!winner && !isDraw) {
@@ -53,18 +54,7 @@ const Game = () => {
         onClick={handleClick}
       />
       <div className="game__scores">
-        <div className="game__scores--item">
-          <span>Player (X)</span>
-          <span>{playerX}</span>
-        </div>
-        <div className="game__scores--item">
-          <span>Tie</span>
-          <span>{tie}</span>
-        </div>
-        <div className="game__scores--item">
-          <span>Player (O)</span>
-          <span>{playerY}</span>
-        </div>
+        {gameScores}
       </div>
     </div>
   );
