@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Board from './Board';
 import Scores from './Scores';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeftRotate } from '@fortawesome/free-solid-svg-icons'
 import calculateWinner from '../helpers/calculateWinner';
 import {calculateScores} from '../helpers/calculateScores';
 import {restartGame} from '../helpers/gameHandle';
@@ -19,6 +21,20 @@ const Game = () => {
     if (current[i] || calculateWinner(current)) return;
     current[i] = xIsNext ? "X" : "O";
     newHistory.push(current);
+    setHistory(newHistory);
+    setXIsNext(!xIsNext);
+  }
+
+  const handleUndo = () => {
+    const newHistory = [...history];
+    const current = [...newHistory[newHistory.length - 1]];
+    const gameStart = current.every(step => step === null);
+    const winner = calculateWinner(current);
+    const isDraw = !winner && !current.includes(null); 
+    if (gameStart || winner || isDraw) {
+      return 
+    }
+    newHistory.pop();
     setHistory(newHistory);
     setXIsNext(!xIsNext);
   }
@@ -55,6 +71,15 @@ const Game = () => {
       />
       <div className="game__scores">
         {gameScores}
+        <div className='game__scores__item'>
+          <span className='game__scores__status'>Undo</span>
+          <button 
+            onClick={handleUndo} 
+            className='btn btn-undo'
+          >
+            <FontAwesomeIcon icon={faArrowLeftRotate} size="xs" />
+          </button>
+        </div>
       </div>
     </div>
   );

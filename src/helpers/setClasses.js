@@ -21,7 +21,7 @@ const setClasses = (winningMoves, isDraw, index) => {
                               : isDraw ? `square--secondary square--border--secondary` 
                               : `square--border`;
 
-  return `square ${conditionalClasses} ${borderX} ${borderY}`;
+  return `square btn ${conditionalClasses} ${borderX} ${borderY}`;
 }
 
 export default setClasses;
